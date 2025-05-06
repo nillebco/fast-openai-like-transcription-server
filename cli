@@ -1,0 +1,64 @@
+setup() {
+    uv venv
+    uv pip compile requirements.in > requirements.txt
+    uv pip install -r requirements.txt
+    git clone https://github.com/ggml-org/whisper.cpp
+    pushd whisper.cpp
+    ./models/generate-coreml-model.sh base.en
+    ./models/generate-coreml-model.sh medium.en
+    cmake -B build -DWHISPER_COREML=1
+    cmake --build build -j --config Release
+    ./models/download-ggml-model.sh base.en
+    ./models/download-ggml-model.sh medium.en
+    ./build/bin/whisper-cli -m models/ggml-base.en.bin -f samples/jfk.wav
+    ./build/bin/whisper-cli -m models/ggml-medium.en.bin -f samples/jfk.wav
+    popd
+}
+
+serve() {
+    model=$1
+    if [ -z "$model" ]; then
+        model="base"
+    fi
+    pushd whisper.cpp
+    ./build/bin/whisper-server --model models/ggml-$model.en.bin
+    popd
+}
+
+transcribe() {
+    # search for a --model option
+    model="base"
+    for arg in "$@"; do
+        if [ "$arg" = "--model" ]; then
+            model="$2"
+            break
+        fi
+    done
+    filename=$2
+    mkdir data
+    whisper.cpp/build/bin/whisper-cli -m whisper.cpp/models/ggml-$model.en.bin -f $filename -ojf -of data/output
+}
+
+convert() {
+    filename=$1
+    filename_without_extension="${filename%.*}"
+    ffmpeg -i $filename -vn -acodec pcm_s16le -ar 44100 -ac 2 $filename_without_extension.wav
+}
+
+case $1 in
+    setup)
+        setup
+        ;;
+    serve)
+        serve $2
+        ;;
+    convert)
+        convert $2
+        ;;
+    transcribe)
+        transcribe $@
+        ;;
+    *)
+        echo "Usage: $0 {setup|serve|convert|transcribe}"
+        exit 1
+esac

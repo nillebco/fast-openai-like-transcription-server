@@ -1,0 +1,5 @@
+ane_transformers
+openai-whisper
+coremltools
+torch
+fastapi

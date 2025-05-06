@@ -1,0 +1,35 @@
+POST http://localhost:8080/inference?model=medium.en
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="jfk.wav"
+Content-Type: audio/webm
+
+< whisper.cpp/samples/jfk.wav
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+POST http://localhost:8080/inference
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="sample.webm"
+Content-Type: audio/webm
+
+< ./sample.wav
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+POST http://localhost:8080/v1/audio/transcriptions?model=medium
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="sample.webm"
+Content-Type: audio/webm
+
+< ./sample.webm
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
