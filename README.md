@@ -16,3 +16,16 @@ I also tried a few other approaches, using pywhispercpp (the official bindings f
 ```
 
 please note: the first transcription will be slow (Apple internals to translate the model take time).
+
+## fine tuning
+
+you can specify a model (base, small, medium if you execute the setup)
+and a language (only en if you execute the setup)
+on the query params of the http call
+
+also: you can use the PORT and WHISPER_BINARY on the command line to use a different port/binary.
+
+## vibe coding
+
+yes, this sample is fruit of vibe coding: it's useful to go fast once the POC has been successfully conducted.
+what is (still) worth the human effort is to find the right procedure and tool to do things correctly. spotting out what the vibe code isn't doing well enough.
