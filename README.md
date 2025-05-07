@@ -35,3 +35,9 @@ also: you can use the PORT and WHISPER_BINARY on the command line to use a diffe
 
 yes, this sample is fruit of vibe coding: it's useful to go fast once the POC has been successfully conducted.
 what is (still) worth the human effort is to find the right procedure and tool to do things correctly. spotting out what the vibe code isn't doing well enough.
+
+## Configure Whisper plugins
+
+### Obsidian - whisper plugin
+
+![Obsidian configuration](assets/obsidian-whisper-plugin.png)
