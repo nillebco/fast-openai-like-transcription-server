@@ -1,0 +1,311 @@
+{
+	"systeminfo": "WHISPER : COREML = 1 | OPENVINO = 0 | Metal : EMBED_LIBRARY = 1 | CPU : ARM_FMA = 1 | FP16_VA = 1 | MATMUL_INT8 = 1 | DOTPROD = 1 | SME = 1 | ACCELERATE = 1 | AARCH64_REPACK = 1 | ",
+	"model": {
+		"type": "base",
+		"multilingual": false,
+		"vocab": 51864,
+		"audio": {
+			"ctx": 1500,
+			"state": 512,
+			"head": 8,
+			"layer": 6
+		},
+		"text": {
+			"ctx": 448,
+			"state": 512,
+			"head": 8,
+			"layer": 6
+		},
+		"mels": 80,
+		"ftype": 1
+	},
+	"params": {
+		"model": "./whisper.cpp/models/ggml-base.en.bin",
+		"language": "en",
+		"translate": false
+	},
+	"result": {
+		"language": "en"
+	},
+	"transcription": [
+		{
+			"timestamps": {
+				"from": "00:00:00,000",
+				"to": "00:00:11,780"
+			},
+			"offsets": {
+				"from": 0,
+				"to": 11780
+			},
+			"text": " After a couple changes in the server, now obsidian is a recording my voice.",
+			"tokens": [
+				{
+					"text": "[_BEG_]",
+					"timestamps": {
+						"from": "00:00:00,000",
+						"to": "00:00:00,000"
+					},
+					"offsets": {
+						"from": 0,
+						"to": 0
+					},
+					"id": 50363,
+					"p": 0.751888,
+					"t_dtw": -1
+				},
+				{
+					"text": " After",
+					"timestamps": {
+						"from": "00:00:00,010",
+						"to": "00:00:01,660"
+					},
+					"offsets": {
+						"from": 10,
+						"to": 1660
+					},
+					"id": 2293,
+					"p": 0.704501,
+					"t_dtw": -1
+				},
+				{
+					"text": " a",
+					"timestamps": {
+						"from": "00:00:01,660",
+						"to": "00:00:01,990"
+					},
+					"offsets": {
+						"from": 1660,
+						"to": 1990
+					},
+					"id": 257,
+					"p": 0.855471,
+					"t_dtw": -1
+				},
+				{
+					"text": " couple",
+					"timestamps": {
+						"from": "00:00:03,080",
+						"to": "00:00:04,000"
+					},
+					"offsets": {
+						"from": 3080,
+						"to": 4000
+					},
+					"id": 3155,
+					"p": 0.997811,
+					"t_dtw": -1
+				},
+				{
+					"text": " changes",
+					"timestamps": {
+						"from": "00:00:04,000",
+						"to": "00:00:05,550"
+					},
+					"offsets": {
+						"from": 4000,
+						"to": 5550
+					},
+					"id": 2458,
+					"p": 0.716293,
+					"t_dtw": -1
+				},
+				{
+					"text": " in",
+					"timestamps": {
+						"from": "00:00:05,550",
+						"to": "00:00:05,990"
+					},
+					"offsets": {
+						"from": 5550,
+						"to": 5990
+					},
+					"id": 287,
+					"p": 0.942363,
+					"t_dtw": -1
+				},
+				{
+					"text": " the",
+					"timestamps": {
+						"from": "00:00:05,990",
+						"to": "00:00:06,580"
+					},
+					"offsets": {
+						"from": 5990,
+						"to": 6580
+					},
+					"id": 262,
+					"p": 0.905244,
+					"t_dtw": -1
+				},
+				{
+					"text": " server",
+					"timestamps": {
+						"from": "00:00:06,580",
+						"to": "00:00:08,000"
+					},
+					"offsets": {
+						"from": 6580,
+						"to": 8000
+					},
+					"id": 4382,
+					"p": 0.659968,
+					"t_dtw": -1
+				},
+				{
+					"text": ",",
+					"timestamps": {
+						"from": "00:00:08,210",
+						"to": "00:00:08,350"
+					},
+					"offsets": {
+						"from": 8210,
+						"to": 8350
+					},
+					"id": 11,
+					"p": 0.499791,
+					"t_dtw": -1
+				},
+				{
+					"text": " now",
+					"timestamps": {
+						"from": "00:00:08,350",
+						"to": "00:00:08,870"
+					},
+					"offsets": {
+						"from": 8350,
+						"to": 8870
+					},
+					"id": 783,
+					"p": 0.684777,
+					"t_dtw": -1
+				},
+				{
+					"text": " obs",
+					"timestamps": {
+						"from": "00:00:08,870",
+						"to": "00:00:09,350"
+					},
+					"offsets": {
+						"from": 8870,
+						"to": 9350
+					},
+					"id": 10201,
+					"p": 0.162396,
+					"t_dtw": -1
+				},
+				{
+					"text": "idian",
+					"timestamps": {
+						"from": "00:00:09,350",
+						"to": "00:00:09,480"
+					},
+					"offsets": {
+						"from": 9350,
+						"to": 9480
+					},
+					"id": 19825,
+					"p": 0.996388,
+					"t_dtw": -1
+				},
+				{
+					"text": " is",
+					"timestamps": {
+						"from": "00:00:10,380",
+						"to": "00:00:10,500"
+					},
+					"offsets": {
+						"from": 10380,
+						"to": 10500
+					},
+					"id": 318,
+					"p": 0.929198,
+					"t_dtw": -1
+				},
+				{
+					"text": " a",
+					"timestamps": {
+						"from": "00:00:10,500",
+						"to": "00:00:10,560"
+					},
+					"offsets": {
+						"from": 10500,
+						"to": 10560
+					},
+					"id": 257,
+					"p": 0.544512,
+					"t_dtw": -1
+				},
+				{
+					"text": " recording",
+					"timestamps": {
+						"from": "00:00:10,560",
+						"to": "00:00:11,120"
+					},
+					"offsets": {
+						"from": 10560,
+						"to": 11120
+					},
+					"id": 8296,
+					"p": 0.946562,
+					"t_dtw": -1
+				},
+				{
+					"text": " my",
+					"timestamps": {
+						"from": "00:00:11,120",
+						"to": "00:00:11,240"
+					},
+					"offsets": {
+						"from": 11120,
+						"to": 11240
+					},
+					"id": 616,
+					"p": 0.588349,
+					"t_dtw": -1
+				},
+				{
+					"text": " voice",
+					"timestamps": {
+						"from": "00:00:11,240",
+						"to": "00:00:11,560"
+					},
+					"offsets": {
+						"from": 11240,
+						"to": 11560
+					},
+					"id": 3809,
+					"p": 0.995443,
+					"t_dtw": -1
+				},
+				{
+					"text": ".",
+					"timestamps": {
+						"from": "00:00:11,560",
+						"to": "00:00:11,680"
+					},
+					"offsets": {
+						"from": 11560,
+						"to": 11680
+					},
+					"id": 13,
+					"p": 0.815891,
+					"t_dtw": -1
+				},
+				{
+					"text": "[_TT_589]",
+					"timestamps": {
+						"from": "00:00:11,780",
+						"to": "00:00:11,780"
+					},
+					"offsets": {
+						"from": 11780,
+						"to": 11780
+					},
+					"id": 50952,
+					"p": 0.051048,
+					"t_dtw": -1
+				}
+			]
+		}
+	]
+}

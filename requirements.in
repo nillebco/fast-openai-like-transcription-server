@@ -3,3 +3,5 @@ openai-whisper
 coremltools
 torch
 fastapi
+python-multipart
+uvicorn

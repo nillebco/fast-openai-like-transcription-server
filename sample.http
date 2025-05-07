@@ -33,3 +33,27 @@ Content-Type: audio/webm
 < ./sample.webm
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+POST http://localhost:8080/v1/audio/transcriptions?model=small
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="sample.webm"
+Content-Type: audio/webm
+
+< ./sample.webm
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+POST http://localhost:8080/v1/audio/transcriptions?model=base
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="sample.webm"
+Content-Type: audio/webm
+
+< ./sample.webm
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

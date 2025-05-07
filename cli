@@ -2,21 +2,23 @@ setup() {
     uv venv
     uv pip compile requirements.in > requirements.txt
     uv pip install -r requirements.txt
-    git clone https://github.com/ggml-org/whisper.cpp
-    . .venv/bin/activate
-    pushd whisper.cpp
-    ./models/generate-coreml-model.sh base.en
-    ./models/generate-coreml-model.sh small.en
-    ./models/generate-coreml-model.sh medium.en
-    cmake -B build -DWHISPER_COREML=1
-    cmake --build build -j --config Release
-    ./models/download-ggml-model.sh base.en
-    ./models/download-ggml-model.sh small.en
-    ./models/download-ggml-model.sh medium.en
-    ./build/bin/whisper-cli -m models/ggml-base.en.bin -f samples/jfk.wav
-    ./build/bin/whisper-cli -m models/ggml-small.en.bin -f samples/jfk.wav
-    ./build/bin/whisper-cli -m models/ggml-medium.en.bin -f samples/jfk.wav
-    popd
+    if [ ! -d "whisper.cpp" ]; then
+        git clone https://github.com/ggml-org/whisper.cpp
+        . .venv/bin/activate
+        pushd whisper.cpp
+        ./models/generate-coreml-model.sh base.en
+        ./models/generate-coreml-model.sh small.en
+        ./models/generate-coreml-model.sh medium.en
+        cmake -B build -DWHISPER_COREML=1
+        cmake --build build -j --config Release
+        ./models/download-ggml-model.sh base.en
+        ./models/download-ggml-model.sh small.en
+        ./models/download-ggml-model.sh medium.en
+        ./build/bin/whisper-cli -m models/ggml-base.en.bin -f samples/jfk.wav
+        ./build/bin/whisper-cli -m models/ggml-small.en.bin -f samples/jfk.wav
+        ./build/bin/whisper-cli -m models/ggml-medium.en.bin -f samples/jfk.wav
+        popd
+    fi
 }
 
 setuppy() {
