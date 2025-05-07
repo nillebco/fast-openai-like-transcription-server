@@ -39,6 +39,10 @@ serve() {
     popd
 }
 
+serveoai() {
+    .venv/bin/python server.py
+}
+
 transcribe() {
     # search for a --model option
     model="base"
@@ -65,6 +69,9 @@ case $1 in
         ;;
     serve)
         serve $2
+        ;;
+    serveoai)
+        serveoai
         ;;
     convert)
         convert $2
