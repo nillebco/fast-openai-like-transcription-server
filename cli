@@ -15,6 +15,14 @@ setup() {
     popd
 }
 
+setuppy() {
+    WHISPER_COREML=1 pip install git+https://github.com/absadiki/pywhispercpp
+}
+
+samplepy() {
+    python sample.py
+}
+
 serve() {
     model=$1
     if [ -z "$model" ]; then
@@ -54,6 +62,12 @@ case $1 in
         ;;
     convert)
         convert $2
+        ;;
+    setuppy)
+        setuppy
+        ;;
+    samplepy)
+        samplepy
         ;;
     transcribe)
         transcribe $@
