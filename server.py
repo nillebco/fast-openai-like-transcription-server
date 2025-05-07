@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from tempfile import NamedTemporaryFile
 import subprocess
 import os
@@ -7,7 +8,18 @@ import uuid
 import json
 import logging
 
+logging.basicConfig(level=logging.INFO)
+
 app = FastAPI()
+
+# CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 WHISPER_MODEL_FMT = "./whisper.cpp/models/ggml-{model}.{language}.bin"
 WHISPER_BINARY = os.getenv("WHISPER_BINARY", "./whisper.cpp/build/bin/whisper-cli")

@@ -43,6 +43,10 @@ serveoai() {
     .venv/bin/python server.py
 }
 
+daemon() {    
+    nohup .venv/bin/python server.py > daemon.log 2>&1 &
+}
+
 transcribe() {
     # search for a --model option
     model="base"
@@ -85,7 +89,10 @@ case $1 in
     transcribe)
         transcribe $@
         ;;
+    daemon)
+        daemon
+        ;;
     *)
-        echo "Usage: $0 {setup|serve|convert|transcribe}"
+        echo "Usage: $0 {setup|serve|convert|transcribe|daemon}"
         exit 1
 esac

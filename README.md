@@ -17,6 +17,12 @@ I also tried a few other approaches, using pywhispercpp (the official bindings f
 
 please note: the first transcription will be slow (Apple internals to translate the model take time).
 
+## long running process (ie. daemon)
+
+```sh
+./cli daemon
+```
+
 ## fine tuning
 
 you can specify a model (base, small, medium if you execute the setup)
