@@ -181,6 +181,15 @@ status_daemon() {
     fi
 }
 
+restart_daemon() {
+    echo "Stopping daemon..."
+    pkill -f "Python.*server.py" || true
+    sleep 2
+    echo "Starting daemon..."
+    daemon
+    echo "Daemon restarted. Check daemon.log for details."
+}
+
 case $1 in
     setup)
         setup
@@ -218,7 +227,10 @@ case $1 in
     status-daemon)
         status_daemon
         ;;
+    restart-daemon)
+        restart_daemon
+        ;;
     *)
-        echo "Usage: $0 {setup|serve|convert|transcribe|daemon|setup-daemon|remove-daemon|start-daemon|status-daemon}"
+        echo "Usage: $0 {setup|serve|convert|transcribe|daemon|setup-daemon|remove-daemon|start-daemon|status-daemon|restart-daemon}"
         exit 1
 esac
