@@ -44,7 +44,23 @@ serveoai() {
 }
 
 daemon() {    
-    nohup .venv/bin/python server.py > daemon.log 2>&1 &
+    # Ensure the log file is writable
+    touch daemon.log
+    chmod 666 daemon.log
+    
+    # Start the daemon with explicit Python path and environment
+    echo "Starting daemon..." >> daemon.log
+    nohup .venv/bin/python -u server.py >> daemon.log 2>&1 &
+    
+    # Wait a moment and check if the process started
+    sleep 2
+    if pgrep -f "Python.*server.py" > /dev/null; then
+        echo "Daemon started successfully" >> daemon.log
+    else
+        echo "Failed to start daemon" >> daemon.log
+        # Show the last few lines of the log
+        tail -n 10 daemon.log
+    fi
 }
 
 transcribe() {
@@ -67,7 +83,7 @@ convert() {
     ffmpeg -i $filename -vn -acodec pcm_s16le -ar 44100 -ac 2 $filename_without_extension.wav
 }
 
-setup-daemon() {
+setup_daemon() {
     # Get the absolute path of the current directory
     CURRENT_DIR=$(pwd)
     
@@ -102,13 +118,16 @@ setup-daemon() {
 </plist>
 EOF
 
+    # Unload if already loaded
+    launchctl unload ~/Library/LaunchAgents/com.whisper-ane.daemon.plist 2>/dev/null || true
+    
     # Load the launch agent
     launchctl load ~/Library/LaunchAgents/com.whisper-ane.daemon.plist
     
     echo "Daemon setup complete. The service will start on next login."
 }
 
-remove-daemon() {
+remove_daemon() {
     # Unload the launch agent if it's running
     launchctl unload ~/Library/LaunchAgents/com.whisper-ane.daemon.plist 2>/dev/null || true
     
@@ -116,6 +135,50 @@ remove-daemon() {
     rm -f ~/Library/LaunchAgents/com.whisper-ane.daemon.plist
     
     echo "Daemon removed successfully."
+}
+
+start_daemon() {
+    # Check if daemon is already running
+    if pgrep -f "python server.py" > /dev/null; then
+        echo "Daemon is already running"
+        return
+    fi
+    
+    # Start the daemon
+    daemon
+    echo "Daemon started. Check daemon.log for details."
+}
+
+status_daemon() {
+    echo "=== Process Status ==="
+    if pgrep -f "Python.*server.py" > /dev/null; then
+        echo "✓ Daemon is running"
+        # Show the process details
+        ps aux | grep "Python.*server.py" | grep -v grep
+    else
+        echo "✗ Daemon is not running"
+        if [ -f daemon.log ]; then
+            echo -e "\nLast 10 lines of daemon.log:"
+            tail -n 10 daemon.log
+        fi
+    fi
+
+    echo "\n=== Launch Agent Status ==="
+    LAUNCH_STATUS=$(launchctl list | grep com.whisper-ane.daemon)
+    if [ -n "$LAUNCH_STATUS" ]; then
+        echo "✓ Launch Agent is loaded"
+        echo "$LAUNCH_STATUS"
+    else
+        echo "✗ Launch Agent is not loaded"
+    fi
+    
+    echo "\n=== Configuration Status ==="
+    if [ -f ~/Library/LaunchAgents/com.whisper-ane.daemon.plist ]; then
+        echo "✓ Launch Agent configuration exists at:"
+        echo "  ~/Library/LaunchAgents/com.whisper-ane.daemon.plist"
+    else
+        echo "✗ No Launch Agent configuration found"
+    fi
 }
 
 case $1 in
@@ -144,12 +207,18 @@ case $1 in
         daemon
         ;;
     setup-daemon)
-        setup-daemon
+        setup_daemon
         ;;
     remove-daemon)
-        remove-daemon
+        remove_daemon
+        ;;
+    start-daemon)
+        start_daemon
+        ;;
+    status-daemon)
+        status_daemon
         ;;
     *)
-        echo "Usage: $0 {setup|serve|convert|transcribe|daemon|setup-daemon|remove-daemon}"
+        echo "Usage: $0 {setup|serve|convert|transcribe|daemon|setup-daemon|remove-daemon|start-daemon|status-daemon}"
         exit 1
 esac
