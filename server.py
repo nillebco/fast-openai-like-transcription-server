@@ -23,6 +23,7 @@ app.add_middleware(
 
 WHISPER_MODEL_FMT = "./whisper.cpp/models/ggml-{model}.{language}.bin"
 WHISPER_BINARY = os.getenv("WHISPER_BINARY", "./whisper.cpp/build/bin/whisper-cli")
+DEFAULT_MODEL = "small"  # Default model to use when whisper-1 is specified
 
 
 async def _prepare_wav_input(file: UploadFile):
@@ -89,11 +90,13 @@ async def transcribe_audio(
 
     try:
         input_wav_path, original_temp_file_path = await _prepare_wav_input(file)
-        model_path = WHISPER_MODEL_FMT.format(model=model, language=language)
+        # Use DEFAULT_MODEL if whisper-1 is specified
+        actual_model = DEFAULT_MODEL if model == "whisper-1" else model
+        model_path = WHISPER_MODEL_FMT.format(model=actual_model, language=language)
         if not os.path.exists(model_path):
             return JSONResponse(
-                status_code=500,
-                content={"error": f"Model {model_path} does not exist"},
+                status_code=400,
+                content={"error": f"Model '{model}' for language '{language}' does not exist. Please check the model name and language."},
             )
 
         cmd = [
