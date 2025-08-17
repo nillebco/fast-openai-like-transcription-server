@@ -1,7 +1,5 @@
 setup() {
-    uv venv
-    uv pip compile requirements.in > requirements.txt
-    uv pip install -r requirements.txt
+    uv sync
     if [ ! -d "whisper.cpp" ]; then
         git clone https://github.com/ggml-org/whisper.cpp
         . .venv/bin/activate
@@ -29,7 +27,7 @@ samplepy() {
     python sample.py
 }
 
-serve() {
+serve_native() {
     model=$1
     if [ -z "$model" ]; then
         model="base"
@@ -41,6 +39,10 @@ serve() {
 
 serveoai() {
     .venv/bin/python server.py
+}
+
+serve() {
+    serveoai
 }
 
 daemon() {    
