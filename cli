@@ -7,6 +7,9 @@ setup() {
         ./models/generate-coreml-model.sh base.en
         ./models/generate-coreml-model.sh small.en
         ./models/generate-coreml-model.sh medium.en
+        ./models/generate-coreml-model.sh base
+        ./models/generate-coreml-model.sh small
+        ./models/generate-coreml-model.sh medium
         cmake -B build -DWHISPER_COREML=1
         cmake --build build -j --config Release
         ./models/download-ggml-model.sh base.en
